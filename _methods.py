@@ -39,6 +39,23 @@ class SyntheticStratifiedKFold:
         self.probabilities = []
 
     def fit(self, X, y, holdout_size = 0.3):
+        """
+        Build a series of models from the training set (X, y).
+        Parameters
+        ----------
+        X : {array-like, sparse matrix} of shape (n_samples, n_features)
+            The training input samples.
+        y : array-like of shape (n_samples,) or (n_samples, n_outputs)
+            The target values (class labels in classification).
+        holdout_size : float, default = 0.3
+            Holdout size for model testing. 
+
+        Returns
+        -------
+        self : object
+            Fitted estimator.
+        """
+
         self.models = []
         self.scores = []      
 
@@ -90,7 +107,21 @@ class SyntheticStratifiedKFold:
 
 
     def predict_proba(self, X):
+        """
+        Predict class probabilities for X.
+        The predicted class probabilities of an input sample are computed as
+        the weighted mean predicted class probabilities across the k different
+        models created during fitting.
+        Parameters
+        ----------
+        X : {array-like, sparse matrix} of shape (n_samples, n_features)
 
+        Returns
+        -------
+        p : ndarray of shape (n_samples, n_classes), or a list of such arrays
+            The class probabilities of the input samples.
+        """
+        
         probs = pd.DataFrame()
 
         for i in range(0, len(self.models)):
@@ -102,6 +133,19 @@ class SyntheticStratifiedKFold:
 
 
     def predict(self, X):
+        """
+        Predict class for X.
+        The predicted class of an input sample is a vote by the different
+        model iterations, weighted by the user defined scoring metric. 
+        Parameters
+        ----------
+        X : {array-like, sparse matrix} of shape (n_samples, n_features)
+
+        Returns
+        -------
+        y : ndarray of shape (n_samples,) or (n_samples, n_outputs)
+            The predicted classes.
+        """
 
         # Get probabilities
         probabilities = self.predict_proba(X)
