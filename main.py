@@ -1,4 +1,4 @@
-# import
+# %% import
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -79,15 +79,15 @@ cm = confusion_matrix(y_test, preds)
 fig, ax = plt.subplots()
 
 # Create the heatmap using the data and labels
-heatmap = ax.pcolor(cm, cmap=plt.cm.Blues)
+heatmap = ax.pcolor(cm, cmap=plt.cm.Greens)
 
 # Format the ticks on the x and y axes
 ax.set_xticks(np.arange(cm.shape[0]) + 0.5, minor=False)
 ax.set_yticks(np.arange(cm.shape[1]) + 0.5, minor=False)
 
 # Set the labels for the x and y axes
-ax.set_xticklabels(['TRUE', 'FALSE'], minor=False)
-ax.set_yticklabels(['TRUE', 'FALSE'], minor=False)
+ax.set_xticklabels(['FALSE', 'TRUE'], minor=False)
+ax.set_yticklabels(['FALSE', 'TRUE'], minor=False)
 
 # Add a title to the plot
 print("-- Confusion Matrix -----------------------------------")
@@ -121,3 +121,4 @@ print("-- Scores ---------------------------------------------")
 for score in metric_list:
     print(str(score).split(" ")[1].ljust(25), ": {0:.4f}".format(score(y_test, preds)))
 print("-------------------------------------------------------")
+# %%

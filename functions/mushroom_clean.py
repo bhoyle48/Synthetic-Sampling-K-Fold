@@ -75,7 +75,7 @@ def get_mushrooms(pca_components, minority_frac):
     for col in X.columns:
         X[col] = Encoder_X.fit_transform(X[col])
 
-    # Recode X, and rename column
+    # Recode X, and rename column -- if poisonous, than 1 (positive class)
     y['class'] = np.where(y['class'] == 'p', 1, 0)
     y.rename(columns={'class': 'isPoison'}, inplace=True)
 
